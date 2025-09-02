@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter @Setter
@@ -31,7 +33,7 @@ public class News {
     @Column(columnDefinition = "text")
     private String summary;
 
-    @Column
+    @Column(unique = true)
     private String link;
 
     @Column
@@ -66,4 +68,8 @@ public class News {
 
     @Column(name = "tagged_at")
     private LocalDateTime taggedAt;
+
+    // ✅ ArticleImage 연관관계 매핑
+    @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<NewsImage> images = new ArrayList<>();
 }

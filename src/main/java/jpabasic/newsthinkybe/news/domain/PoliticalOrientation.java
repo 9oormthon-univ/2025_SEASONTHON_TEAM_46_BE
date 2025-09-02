@@ -2,9 +2,9 @@ package jpabasic.newsthinkybe.news.domain;
 
 public enum PoliticalOrientation {
 
-    PROGRESSIVE("progressive", "진보"),
-    CONSERVATIVE("conservative", "보수"),
-    MODERATE("moderate", "중도");
+    PROGRESSIVE("PROGRESSIVE", "진보"),
+    CONSERVATIVE("CONSERVATIVE", "보수"),
+    MODERATE("MODERATE", "중도");
 
     private final String code;
     private final String description;
