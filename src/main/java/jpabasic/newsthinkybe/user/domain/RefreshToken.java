@@ -1,4 +1,4 @@
-package jpabasic.newsthinkybe.domain;
+package jpabasic.newsthinkybe.user.domain;
 
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;

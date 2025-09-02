@@ -6,18 +6,18 @@ import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import jakarta.transaction.Transactional;
 import jpabasic.newsthinkybe.auth.security.CustomUserDetails;
-import jpabasic.newsthinkybe.domain.RefreshToken;
-import jpabasic.newsthinkybe.domain.user.KakaoUserInfo;
-import jpabasic.newsthinkybe.dto.TokenDto;
-import jpabasic.newsthinkybe.exception.CustomException;
-import jpabasic.newsthinkybe.repository.RefreshTokenRepository;
-import jpabasic.newsthinkybe.repository.UserRepository;
+import jpabasic.newsthinkybe.user.domain.RefreshToken;
+import jpabasic.newsthinkybe.user.domain.user.KakaoUserInfo;
+import jpabasic.newsthinkybe.user.dto.TokenDto;
+import jpabasic.newsthinkybe.global.exception.CustomException;
+import jpabasic.newsthinkybe.user.domain.user.User;
+import jpabasic.newsthinkybe.user.repository.RefreshTokenRepository;
+import jpabasic.newsthinkybe.user.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Component;
 import io.jsonwebtoken.Jwts;
@@ -25,14 +25,13 @@ import io.jsonwebtoken.Claims;
 import org.springframework.util.StringUtils;
 
 import javax.crypto.SecretKey;
-import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static jpabasic.newsthinkybe.exception.ErrorCode.*;
+import static jpabasic.newsthinkybe.global.exception.ErrorCode.*;
 
 @Component
 public class TokenProvider {
@@ -67,7 +66,7 @@ public class TokenProvider {
         OAuth2User oAuth2User=(OAuth2User) authentication.getPrincipal();
         KakaoUserInfo kakaoUserInfo=new KakaoUserInfo(oAuth2User.getAttributes());
 
-        jpabasic.newsthinkybe.domain.user.User user=userRepository.findByEmail(kakaoUserInfo.getEmail())
+        User user=userRepository.findByEmail(kakaoUserInfo.getEmail())
                         .orElseThrow(()->new CustomException(USER_NOT_FOUND));
 
         saveRefreshTokenOnRedis(user,refreshToken);
@@ -75,7 +74,7 @@ public class TokenProvider {
 
     }
 
-    public void saveRefreshTokenOnRedis(jpabasic.newsthinkybe.domain.user.User user,String refreshToken) {
+    public void saveRefreshTokenOnRedis(User user, String refreshToken) {
         List<SimpleGrantedAuthority> simpleGrantedAuthorities=new ArrayList<>();
         simpleGrantedAuthorities.add(new SimpleGrantedAuthority(user.getUserRole().name()));
         refreshTokenRepository.save(RefreshToken.builder()
@@ -110,7 +109,7 @@ public class TokenProvider {
 
         String email = claims.getSubject();
 
-        jpabasic.newsthinkybe.domain.user.User user = userRepository.findByEmail(email)
+        User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new CustomException(USER_NOT_FOUND));
 
         return new UsernamePasswordAuthenticationToken(new CustomUserDetails(user), token, authorities);

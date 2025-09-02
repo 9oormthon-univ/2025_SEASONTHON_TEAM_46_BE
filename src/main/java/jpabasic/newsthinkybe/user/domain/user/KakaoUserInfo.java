@@ -1,4 +1,4 @@
-package jpabasic.newsthinkybe.domain.user;
+package jpabasic.newsthinkybe.user.domain.user;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

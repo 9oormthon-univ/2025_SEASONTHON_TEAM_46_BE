@@ -1,10 +1,10 @@
 package jpabasic.newsthinkybe.auth.security;
 
 import jakarta.transaction.Transactional;
-import jpabasic.newsthinkybe.domain.user.KakaoUserInfo;
-import jpabasic.newsthinkybe.domain.user.User;
-import jpabasic.newsthinkybe.domain.user.UserRole;
-import jpabasic.newsthinkybe.repository.UserRepository;
+import jpabasic.newsthinkybe.user.domain.user.KakaoUserInfo;
+import jpabasic.newsthinkybe.user.domain.user.User;
+import jpabasic.newsthinkybe.user.domain.user.UserRole;
+import jpabasic.newsthinkybe.user.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

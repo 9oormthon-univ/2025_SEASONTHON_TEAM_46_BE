@@ -1,4 +1,4 @@
-package jpabasic.newsthinkybe.domain.user;
+package jpabasic.newsthinkybe.user.domain.user;
 
 public enum UserRole {
     USER("ROLE_USER"),

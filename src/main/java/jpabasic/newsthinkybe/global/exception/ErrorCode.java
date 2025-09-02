@@ -1,4 +1,4 @@
-package jpabasic.newsthinkybe.exception;
+package jpabasic.newsthinkybe.global.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

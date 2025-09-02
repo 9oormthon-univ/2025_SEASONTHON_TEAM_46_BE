@@ -1,7 +1,7 @@
-package jpabasic.newsthinkybe.domain.user;
+package jpabasic.newsthinkybe.user.domain.user;
 
 import jakarta.persistence.*;
-import jpabasic.newsthinkybe.domain.BaseEntity;
+import jpabasic.newsthinkybe.global.domain.BaseEntity;
 import lombok.*;
 
 @Getter

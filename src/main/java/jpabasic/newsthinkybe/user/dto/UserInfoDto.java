@@ -1,4 +1,4 @@
-package jpabasic.newsthinkybe.dto;
+package jpabasic.newsthinkybe.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

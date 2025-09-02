@@ -1,6 +1,6 @@
-package jpabasic.newsthinkybe.repository;
+package jpabasic.newsthinkybe.user.repository;
 
-import jpabasic.newsthinkybe.domain.user.User;
+import jpabasic.newsthinkybe.user.domain.user.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,17 +1,14 @@
-package jpabasic.newsthinkybe.controller;
+package jpabasic.newsthinkybe.user.controller.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jpabasic.newsthinkybe.auth.security.CustomUserDetails;
-import jpabasic.newsthinkybe.domain.user.KakaoUserInfo;
-import jpabasic.newsthinkybe.domain.user.User;
-import jpabasic.newsthinkybe.dto.TokenDto;
-import jpabasic.newsthinkybe.dto.UserInfoDto;
+import jpabasic.newsthinkybe.user.dto.TokenDto;
+import jpabasic.newsthinkybe.user.dto.UserInfoDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 

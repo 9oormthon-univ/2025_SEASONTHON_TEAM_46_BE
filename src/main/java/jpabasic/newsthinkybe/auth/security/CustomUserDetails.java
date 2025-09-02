@@ -1,5 +1,6 @@
 package jpabasic.newsthinkybe.auth.security;
 
+import jpabasic.newsthinkybe.user.domain.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -8,9 +9,9 @@ import java.util.List;
 
 public class CustomUserDetails implements UserDetails {
 
-    private final jpabasic.newsthinkybe.domain.user.User user;
+    private final User user;
 
-    public CustomUserDetails(jpabasic.newsthinkybe.domain.user.User user) {
+    public CustomUserDetails(User user) {
         this.user = user;
     }
 
