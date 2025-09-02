@@ -1,11 +1,9 @@
-package jpabasic.newsthinkybe.security;
+package jpabasic.newsthinkybe.auth.security;
 
 import jakarta.transaction.Transactional;
 import jpabasic.newsthinkybe.domain.user.KakaoUserInfo;
-import jpabasic.newsthinkybe.domain.user.OAuth2UserInfo;
 import jpabasic.newsthinkybe.domain.user.User;
 import jpabasic.newsthinkybe.domain.user.UserRole;
-import jpabasic.newsthinkybe.exception.CustomException;
 import jpabasic.newsthinkybe.repository.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,8 +15,6 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
-
-import static jpabasic.newsthinkybe.exception.ErrorCode.PROVIDER_ERROR;
 
 @Service
 @Slf4j

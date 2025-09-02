@@ -31,5 +31,7 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
 
+    private String refreshToken;
+
 
 }

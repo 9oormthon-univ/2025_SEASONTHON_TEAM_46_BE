@@ -33,7 +33,15 @@ spring:
     username: sa
     password: password
 
+    redis:
+      host: localhost
+      port: 6379
+
 logging:
   level:
     org.springframework.security.oauth2: DEBUG
     org.springframework.web.client: DEBUG
+
+jwt:
+  key: newsTHINKYpasswordSHhhhhnewsTHINKYpasswordSHhhhhnewsTHINKYpasswordSHhhhhnewsTHINKYpasswordSHhhhh
+
