@@ -1,6 +1,7 @@
 package jpabasic.newsthinkybe.news.domain;
 
 import jakarta.persistence.*;
+import jpabasic.newsthinkybe.news.dto.NewsResponseDto;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -58,8 +59,8 @@ public class News {
     @Enumerated(EnumType.STRING)
     private PoliticalOrientation orientation; // 성향 분석 결과
 
-    @Column(name = "emotion_label")
-    private Double emotionRating;
+    @Column(name = "emotion_label", nullable = false)
+    private Double emotionRating = 0.0;
 
     @Column
     private String thumbnail;
@@ -74,6 +75,30 @@ public class News {
     // ✅ ArticleImage 연관관계 매핑
     @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NewsImage> images = new ArrayList<>();
+
+    public static NewsResponseDto toDTO(News news) {
+        return NewsResponseDto.builder()
+                .id(news.getId())
+                .outlet(news.getOutlet())
+                .feedUrl(news.getFeedUrl())
+                .title(news.getTitle())
+                .author(news.getAuthor())
+                .summary(news.getSummary())
+                .link(news.getLink())
+                .published(news.getPublished())
+                .crawledAt(news.getCrawledAt())
+                .category(news.getCategory())
+                .sentiment(news.getSentiment())
+                .confidence(news.getConfidence())
+                .rationale(news.getRationale())
+                .orientation(news.getOrientation())
+                .emotionRating(news.getEmotionRating() != null ? news.getEmotionRating() : 0.0)
+                .thumbnail(news.getThumbnail())
+                .likeCount(news.getLikeCount())
+                .taggedAt(news.getTaggedAt())
+                .build();
+    }
+
 
     public Integer increaseCount(){
         likeCount++;
