@@ -13,7 +13,12 @@ public enum ErrorCode {
     INVALID_TOKEN("3030","유효하지 않은 토큰입니다."),
     INVALID_JWT_SIGNATURE("3031","jwt의 토큰 시그니처가 유효하지 않습니다."),
     UNAUTHORIZED("3032","로그인이 필요한 요청입니다."),
-    INVALID_REFRESH_TOKEN("3033","유효하지 않은 refresh token 입니다.");
+    INVALID_REFRESH_TOKEN("3033","유효하지 않은 refresh token 입니다."),
+
+    //News
+    NEWS_NOT_FOUND("5000","해당 뉴스를 찾을 수 없습니다.");
+
+
 
     private final String code;
     private final String message;

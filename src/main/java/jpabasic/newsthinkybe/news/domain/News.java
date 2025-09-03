@@ -2,6 +2,7 @@ package jpabasic.newsthinkybe.news.domain;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -64,7 +65,8 @@ public class News {
     private String thumbnail;
 
     @Column(name = "like_count")
-    private Long likeCount;
+    @ColumnDefault("0")
+    private Integer likeCount;
 
     @Column(name = "tagged_at")
     private LocalDateTime taggedAt;
@@ -72,4 +74,16 @@ public class News {
     // ✅ ArticleImage 연관관계 매핑
     @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NewsImage> images = new ArrayList<>();
+
+    public Integer increaseCount(){
+        likeCount++;
+        return likeCount;
+    }
+
+    public Integer decreaseCount(){
+        if (likeCount > 0){
+            likeCount--;
+        }
+        return likeCount;
+    }
 }
