@@ -44,7 +44,9 @@ public class SecurityConfig {
                                         "/v3/api-docs/**",
                                         "/h2-console/**",
                                         "/favicon.ico",
-                                        "/error").permitAll()
+                                        "/error",
+                                        "/api/news/**"
+                                ).permitAll()
                                 .anyRequest().authenticated()
                 )
                 .exceptionHandling(handler->handler.authenticationEntryPoint(new AuthenticationEntryPoint() {
