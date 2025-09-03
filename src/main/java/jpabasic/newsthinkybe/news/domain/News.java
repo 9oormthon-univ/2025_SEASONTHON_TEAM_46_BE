@@ -1,6 +1,7 @@
 package jpabasic.newsthinkybe.news.domain;
 
 import jakarta.persistence.*;
+import jpabasic.newsthinkybe.global.domain.BaseEntity;
 import jpabasic.newsthinkybe.news.dto.NewsResponseDto;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -14,7 +15,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class News {
+public class News extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

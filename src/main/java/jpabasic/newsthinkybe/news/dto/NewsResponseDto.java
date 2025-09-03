@@ -29,6 +29,6 @@ public class NewsResponseDto {
 
     private double emotionRating;
     private String thumbnail;
-    private Long likeCount;
+    private Integer likeCount;
     private LocalDateTime taggedAt;
 }
