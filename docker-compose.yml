@@ -17,5 +17,14 @@ services:
       # init.sql을 자동 실행 (최초 실행 시에만 적용됨)
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
 
+  redis:
+    image: redis:7
+    container_name: news_redis
+    restart: always
+    ports:
+      - "${REDIS_PORT}:6379"
+    volumes:
+      - redis_data:/data
+
 volumes:
   postgres_data:
