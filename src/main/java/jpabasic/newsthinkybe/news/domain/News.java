@@ -58,7 +58,10 @@ public class News {
     @Enumerated(EnumType.STRING)
     private PoliticalOrientation orientation; // 성향 분석 결과
 
-    @Column(name = "emotion_label", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Emotion emotion; // 감정 (긍정, 중립, 부정)
+
+    @Column(name = "emotion_rating", nullable = false)
     private Double emotionRating = 0.0;
 
     @Column

@@ -18,6 +18,12 @@ CREATE TYPE political_orientation AS ENUM (
             'PROGRESSIVE', 'CONSERVATIVE', 'MODERATE'
         );
 END IF;
+
+    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'news_category') THEN
+CREATE TYPE emotion AS ENUM (
+            'POSITIVE', 'NEGATIVE', 'NEUTRAL'
+        );
+END IF;
 END$$;
 
 
@@ -37,6 +43,7 @@ CREATE TABLE IF NOT EXISTS news (
     confidence      DOUBLE PRECISION,
     rationale       TEXT,
     orientation     political_orientation,
+    emotion         emotion,
     emotion_rating  DOUBLE PRECISION,           -- double → double precision
     thumbnail       TEXT,
     like_count      BIGINT,
@@ -58,7 +65,7 @@ CREATE TABLE IF NOT EXISTS news_image (
 INSERT INTO news (
     id, outlet, feed_url, title, author, summary, link,
     published, crawled_at, category, sentiment, confidence,
-    rationale, orientation, emotion_rating, thumbnail, like_count, tagged_at
+    rationale, orientation, emotion, emotion_rating, thumbnail, like_count, tagged_at
 ) VALUES
       (
           2, '경향신문', 'https://www.khan.co.kr/rss/rssdata/total_news.xml',
@@ -67,7 +74,7 @@ INSERT INTO news (
           'https://www.khan.co.kr/article/202509022236001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=total_news',
           NULL, '2025-09-02 15:42:13.954496', 'SOCIETY', 'ANGER_CRITICISM', 0.9,
           '폭발물 설치 협박 사건을 다루며 사회적 불안과 비판적인 감정을 유발하는 내용이다.',
-          NULL, 0.0,
+          NULL, NEGATIVE, 0.0,
           'https://img.khan.co.kr/news/2025/09/02/news-p.v1.20250902.f4a5f579be17442ab7cc9fa5851bd715_P1.jpeg',
           NULL, '2025-09-02 15:42:53.224524'
       ),
@@ -78,7 +85,7 @@ INSERT INTO news (
           'https://www.khan.co.kr/article/202509022239001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=total_news',
           NULL, '2025-09-02 15:42:13.753385', 'POLITICS', 'ANGER_CRITICISM', 0.9,
           '트럼프 대통령의 군대 파견 계획이 법원에 의해 위반으로 판결되며 정치적 논란과 비판을 불러일으키고 있다.',
-          NULL, 0.0,
+          NULL, NEGATIVE, 0.0,
           'https://img.khan.co.kr/news/2025/09/02/news-p.v1.20250825.34db7e78a93b42f09fb736fc792c715c_P1.png',
           NULL, '2025-09-02 15:42:57.21759'
       ),
@@ -89,7 +96,7 @@ INSERT INTO news (
           'https://www.khan.co.kr/article/202509022208001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=total_news',
           NULL, '2025-09-02 15:42:14.728249', 'POLITICS', 'ANGER_CRITICISM', 0.9,
           '트럼프 대통령의 비난과 군 투입 시사로 인해 정치적 논란과 비판이 일어나는 상황을 다룬 기사이다.',
-          NULL, 0.0,
+          NULL, NEGATIVE, 0.0,
           'https://img.khan.co.kr/news/2025/09/02/news-p.v1.20250828.659dea170e474d28b0e1483676857061_P1.jpg',
           NULL, '2025-09-02 15:42:45.998402'
       ),
@@ -100,7 +107,7 @@ INSERT INTO news (
           'https://www.khan.co.kr/article/202509022213005/?utm_source=khan_rss&utm_medium=rss&utm_campaign=total_news',
           NULL, '2025-09-02 15:42:14.558147', 'SOCIETY', 'ANGER_CRITICISM', 0.9,
           '노조의 파업 결정과 관련된 불만과 갈등을 다룬 기사로, 노동자의 권리와 임금 인상 요구가 중심이다.',
-          NULL, 0.0, NULL,
+          NULL, NEGATIVE, 0.0, NULL,
           NULL, '2025-09-02 15:42:48.515246'
       ),
       (
@@ -110,7 +117,7 @@ INSERT INTO news (
           'https://www.khan.co.kr/article/202509022234001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=total_news',
           NULL, '2025-09-02 15:42:14.261739', 'POLITICS', 'HOPE_ENCOURAGE', 0.85,
           '대통령이 원외위원장들을 격려하며 긍정적인 메시지를 전달하는 내용이다.',
-          NULL, 0.0,
+          NULL, POSITIVE, 0.0,
           'https://img.khan.co.kr/news/2025/09/02/news-p.v1.20250902.644977d801434d52afe87c757b894283_P1.jpeg',
           NULL, '2025-09-02 15:42:50.417138'
       ),
@@ -121,7 +128,7 @@ INSERT INTO news (
           'https://www.khan.co.kr/article/202509022148015/?utm_source=khan_rss&utm_medium=rss&utm_campaign=total_news',
           NULL, '2025-09-02 15:42:15.3231', 'CULTURE', 'HOPE_ENCOURAGE', 0.9,
           '영화와 예능 프로그램의 긍정적인 메시지와 도전 이야기를 다룬 기사이다.',
-          NULL, 0.0, NULL,
+          NULL, POSITIVE, 0.0, NULL,
           NULL, '2025-09-02 15:42:33.229618'
       ),
       (
@@ -131,7 +138,7 @@ INSERT INTO news (
           'https://www.khan.co.kr/article/202509022147035/?utm_source=khan_rss&utm_medium=rss&utm_campaign=total_news',
           NULL, '2025-09-02 15:42:15.65452', 'SPORTS', 'HOPE_ENCOURAGE', 0.85,
           '김하성의 이적 소식은 새로운 팀에서의 가능성을 보여주며 긍정적인 미래를 암시한다.',
-          NULL, 0.0,
+          NULL, POSITIVE, 0.0,
           'https://img.khan.co.kr/news/2025/09/02/l_2025090301000117300009301.jpg',
           NULL, '2025-09-02 15:42:27.989542'
       ),
@@ -142,7 +149,7 @@ INSERT INTO news (
           'https://www.khan.co.kr/article/202509022148005/?utm_source=khan_rss&utm_medium=rss&utm_campaign=total_news',
           NULL, '2025-09-02 15:42:15.488321', 'SOCIETY', 'HOPE_ENCOURAGE', 0.9,
           '수능 준비 전략과 수험생 정신건강 관리법을 다루며 긍정적인 메시지를 전달하는 기사이다.',
-          NULL, 0.0, NULL,
+          NULL, POSITIVE, 0.0, NULL
           NULL, '2025-09-02 15:42:30.73844'
       ),
       (
@@ -152,7 +159,7 @@ INSERT INTO news (
           'https://www.khan.co.kr/article/202509022148025/?utm_source=khan_rss&utm_medium=rss&utm_campaign=total_news',
           NULL, '2025-09-02 15:42:15.144272', 'IT_SCIENCE', 'NEUTRAL_FACTUAL', 0.8,
           '환경 문제와 동물의 멸종 위기를 다룬 과학적 내용을 전달하는 기사이다.',
-          NULL, 0.0, NULL,
+          NULL, NEUTRAL, 0.0, NULL,
           NULL, '2025-09-02 15:42:36.305493'
       ),
       (
@@ -162,7 +169,7 @@ INSERT INTO news (
           'https://www.khan.co.kr/article/202509022149001/?utm_source=khan_rss&utm_medium=rss&utm_campaign=total_news',
           NULL, '2025-09-02 15:42:14.96619', 'SOCIETY', 'ANXIETY_CRISIS', 0.9,
           '반정부 시위와 관련된 폭력 사태와 사회 혼란을 다루며 불안과 위기감을 조성하는 내용이다.',
-          NULL, 0.0,
+          NULL, NEGATIVE, 0.0,
           'https://img.khan.co.kr/news/2025/09/02/rcv.YNA.20250902.PRU20250902192901009_P1.jpg',
           NULL, '2025-09-02 15:42:39.515308'
       );
@@ -198,3 +205,18 @@ INSERT INTO news_image (id, news_id, src, alt) VALUES
                                                     '김하성, 탬파베이서 애틀랜타로 ‘전격 이적’…내년 시즌 ‘가을야구’ 꿈꾼다'
                                                    );
 
+
+-- News View 삽입
+INSERT INTO news_view (user_id, news_id, viewed_at) VALUES (1, 1, NOW() - INTERVAL '1 day');
+INSERT INTO news_view (user_id, news_id, viewed_at) VALUES (1, 2, NOW() - INTERVAL '2 day');
+INSERT INTO news_view (user_id, news_id, viewed_at) VALUES (1, 3, NOW() - INTERVAL '3 day');
+INSERT INTO news_view (user_id, news_id, viewed_at) VALUES (1, 5, NOW() - INTERVAL '4 day');
+INSERT INTO news_view (user_id, news_id, viewed_at) VALUES (1, 4, NOW() - INTERVAL '5 day');
+INSERT INTO news_view (user_id, news_id, viewed_at) VALUES (1, 13, NOW() - INTERVAL '3 day');
+INSERT INTO news_view (user_id, news_id, viewed_at) VALUES (1, 15, NOW() - INTERVAL '4 day');
+INSERT INTO news_view (user_id, news_id, viewed_at) VALUES (1, 14, NOW() - INTERVAL '5 day');
+-- INSERT INTO news_view (user_id, news_id, viewed_at) VALUES (2, 5, NOW() - INTERVAL '6 day');
+-- INSERT INTO news_view (user_id, news_id, viewed_at) VALUES (3, 2, NOW() - INTERVAL '1 hour');
+-- INSERT INTO news_view (user_id, news_id, viewed_at) VALUES (3, 3, NOW() - INTERVAL '2 hour');
+-- INSERT INTO news_view (user_id, news_id, viewed_at) VALUES (3, 4, NOW() - INTERVAL '3 hour');
+-- INSERT INTO news_view (user_id, news_id, viewed_at) VALUES (3, 5, NOW());

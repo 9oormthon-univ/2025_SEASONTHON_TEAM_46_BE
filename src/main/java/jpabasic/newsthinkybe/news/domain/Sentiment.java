@@ -6,7 +6,8 @@ public enum Sentiment {
     ANGER_CRITICISM("ANGER_CRITICISM", "분노, 비판, 불만, 논란"),
     ANXIETY_CRISIS("ANXIETY_CRISIS", "불안, 위기, 공포, 갈등"),
     SAD_SHOCK("SAD_SHOCK", "슬픔, 충격, 재난, 사고, 패배"),
-    NEUTRAL_FACTUAL("NEUTRAL_FACTUAL", "중립적, 단순 사실 전달");
+    NEUTRAL_FACTUAL("NEUTRAL_FACTUAL", "중립적, 단순 사실 전달"),
+    FUN_INTEREST("FUN_INTEREST", "재미, 흥미, 유쾌");
 
     private final String code;
     private final String description;

@@ -45,7 +45,7 @@ public class SecurityConfig {
                                         "/h2-console/**",
                                         "/favicon.ico",
                                         "/error",
-                                        "/api/news/**"
+                                        "/api/**"
                                 ).permitAll()
                                 .anyRequest().authenticated()
                 )
