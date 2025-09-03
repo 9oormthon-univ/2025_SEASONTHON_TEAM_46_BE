@@ -1,5 +1,6 @@
 package jpabasic.newsthinkybe.news.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import jpabasic.newsthinkybe.news.domain.News;
 import jpabasic.newsthinkybe.news.service.NewsService;
 import lombok.RequiredArgsConstructor;
@@ -47,4 +48,6 @@ public class NewsController {
         newsService.deleteNews(id);
         return ResponseEntity.noContent().build();
     }
+
+
 }

@@ -1,6 +1,7 @@
 package jpabasic.newsthinkybe.news.service;
 
 import jpabasic.newsthinkybe.news.domain.News;
+import jpabasic.newsthinkybe.news.dto.NewsListResponseDto;
 import jpabasic.newsthinkybe.news.repository.NewsRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -59,4 +60,6 @@ public class NewsService {
     public void deleteNews(Long id) {
         newsRepository.deleteById(id);
     }
+
+
 }

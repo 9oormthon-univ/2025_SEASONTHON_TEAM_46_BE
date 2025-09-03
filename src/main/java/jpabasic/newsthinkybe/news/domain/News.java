@@ -59,7 +59,7 @@ public class News {
     private PoliticalOrientation orientation; // 성향 분석 결과
 
     @Column(name = "emotion_label")
-    private double emotionRating;
+    private Double emotionRating;
 
     @Column
     private String thumbnail;
