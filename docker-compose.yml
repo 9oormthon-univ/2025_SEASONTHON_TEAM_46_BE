@@ -14,6 +14,8 @@ services:
       - "${POSTGRES_PORT}:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      # init.sql을 자동 실행 (최초 실행 시에만 적용됨)
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql:ro
 
   redis:
     image: redis:7
@@ -26,4 +28,3 @@ services:
 
 volumes:
   postgres_data:
-  redis_data:
