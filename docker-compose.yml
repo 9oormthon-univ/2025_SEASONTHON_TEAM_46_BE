@@ -1,11 +1,25 @@
 version: '3.8'
 
 services:
+  app:
+    build: ./        # Spring Boot Dockerfile 있는 경로
+    container_name: spring-app
+    ports:
+      - "8080:8080"
+    env_file: .env_deploy
+    environment:
+      SPRING_DATASOURCE_URL: ${POSTGRES_URL}
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      - postgres
+      - redis
+
   postgres:
     image: postgres:15
     container_name: news_postgres
     restart: always
-    env_file: .env
+    env_file: .env_deploy
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
