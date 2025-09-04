@@ -36,7 +36,7 @@ public class NewsController {
 
     // 뉴스 단건 조회
     @GetMapping("/{id}")
-    @Operation(summary = "뉴스 하나 조회", description = "Retrieve a single news item by its ID")
+    @Operation(summary = "뉴스 하나 조회 (뉴스 본문은 따로 조회해야합니다 !)", description = "Retrieve a single news item by its ID")
     public ResponseEntity<NewsResponseDto> getNews(@PathVariable Long id) {
         return ResponseEntity.ok(newsService.getNews(id));
     }
