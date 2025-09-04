@@ -1,6 +1,7 @@
 package jpabasic.newsthinkybe.news.domain;
 
 import jakarta.persistence.*;
+import jpabasic.newsthinkybe.comment.domain.Comment;
 import jpabasic.newsthinkybe.global.domain.BaseEntity;
 import jpabasic.newsthinkybe.news.dto.NewsResponseDto;
 import lombok.*;
@@ -79,6 +80,9 @@ public class News extends BaseEntity {
     // ✅ ArticleImage 연관관계 매핑
     @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NewsImage> images = new ArrayList<>();
+
+    @OneToMany(mappedBy="news",cascade=CascadeType.ALL,orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
     public static NewsResponseDto toDTO(News news) {
         return NewsResponseDto.builder()

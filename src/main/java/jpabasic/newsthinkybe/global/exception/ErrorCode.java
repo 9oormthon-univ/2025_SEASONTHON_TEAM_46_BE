@@ -20,7 +20,12 @@ public enum ErrorCode {
     CSV_READ_ERROR("5100", "CSV 파일을 읽는 도중 에러가 발생했습니다."),
 
     // Common
-    NOT_FOUND("404", "Not Found");
+    NOT_FOUND("404", "Not Found"),
+
+    //comment
+    COMMENT_SAVE_ERROR("2020","댓글 저장에 오류가 발생했습니다"),
+    COMMENT_DELETE_FAILURE("2021","댓글 삭제에 오류가 발생했습니다"),
+    COMMENT_NOT_FOUND("2022","해당 댓글을 찾을 수 없어요.");
 
     private final String code;
     private final String message;
