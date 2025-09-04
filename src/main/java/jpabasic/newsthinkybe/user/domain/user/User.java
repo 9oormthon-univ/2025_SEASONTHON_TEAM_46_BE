@@ -2,7 +2,11 @@ package jpabasic.newsthinkybe.user.domain.user;
 
 import jakarta.persistence.*;
 import jpabasic.newsthinkybe.global.domain.BaseEntity;
+import jpabasic.newsthinkybe.likes.domain.Likes;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Entity
@@ -33,5 +37,7 @@ public class User extends BaseEntity {
 
     private String refreshToken;
 
+    @OneToMany(mappedBy="user",cascade=CascadeType.ALL,orphanRemoval = true)
+    private List<Likes> likes=new ArrayList<>();
 
 }
