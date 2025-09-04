@@ -1,15 +1,24 @@
 package jpabasic.newsthinkybe.news.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jdk.jfr.Category;
+import jpabasic.newsthinkybe.auth.security.CustomUserDetails;
+import jpabasic.newsthinkybe.news.domain.Emotion;
 import jpabasic.newsthinkybe.news.domain.News;
 import jpabasic.newsthinkybe.news.dto.NewsBodyDto;
 import jpabasic.newsthinkybe.news.dto.NewsResponseDto;
 import jpabasic.newsthinkybe.news.service.NewsService;
+import jpabasic.newsthinkybe.view.dto.PagedResponse;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 @RestController
@@ -58,9 +67,39 @@ public class NewsController {
         return ResponseEntity.ok(newsService.getNewsBody(id));
     }
 
-    @GetMapping("/{id}/recommandation/opposing-emotion")
-    @Operation(summary = "반대 감정 뉴스 3개 추천", description = "Retrieve news recommendations with opposing emotions")
-    public ResponseEntity<List<NewsResponseDto>> getOpposingEmotionRecommendations(@PathVariable Long id) {
-        return ResponseEntity.ok(newsService.getOpposingEmotionRecommendations(id));
+    @GetMapping("/{id}/recommendation/opposing-emotion")
+    @Operation(summary = "반대 감정 뉴스 2개 추천", description = "Retrieve news recommendations with opposing emotions")
+    public ResponseEntity<List<NewsResponseDto>> getOpposingEmotionRecommendations(@PathVariable Long id,
+                                                                                   @AuthenticationPrincipal CustomUserDetails user) {
+        return ResponseEntity.ok(newsService.getOpposingEmotionRecommendations(id, user.getUserId()));
+    }
+
+    @GetMapping("/{id}/recommendation/opposing-category")
+    @Operation(summary = "다른 카테고리 뉴스 2개 추천", description = "현재 기사와 다른 카테고리 뉴스 추천 (랜덤)")
+    public ResponseEntity<List<NewsResponseDto>> getOpposingCategoryRecommendations(@PathVariable Long id,
+                                                                                    @AuthenticationPrincipal CustomUserDetails user) {
+        return ResponseEntity.ok(newsService.getOpposingCategoryRecommendations(id, user.getUserId()));
+    }
+
+    @GetMapping("/category")
+    @Operation(summary = "선택한 카테고리 뉴스 조회 (페이징)")
+    public ResponseEntity<PagedResponse<NewsResponseDto>> recommendByCategory(
+            @RequestParam Category category,
+            @AuthenticationPrincipal CustomUserDetails user,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(newsService.recommendByCategory(category, user.getUserId(), pageable));
+    }
+
+    @GetMapping("/emotion")
+    @Operation(summary = "선택한 감정 뉴스 조회 (페이징)")
+    public ResponseEntity<PagedResponse<NewsResponseDto>> recommendByEmotion(
+            @RequestParam Emotion emotion,
+            @AuthenticationPrincipal CustomUserDetails user,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(newsService.recommendByEmotion(emotion, user.getUserId(), pageable));
     }
 }
