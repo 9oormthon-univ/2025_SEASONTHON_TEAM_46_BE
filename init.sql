@@ -1,17 +1,15 @@
 -- ENUM 타입 정의
-DO $$
-BEGIN
-    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'news_category') THEN
-CREATE TYPE news_category AS ENUM (
-            'POLITICS', 'SOCIETY', 'ECONOMY', 'INTERNATIONAL', 'CULTURE', 'SPORTS', 'IT_SCIENCE'
-        );
-END IF;
+CREATE TYPE IF NOT EXISTS news_category AS ENUM (
+    'POLITICS', 'SOCIETY', 'ECONOMY', 'INTERNATIONAL', 'CULTURE', 'SPORTS', 'IT_SCIENCE'
+);
 
-    IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'sentiment') THEN
-CREATE TYPE sentiment AS ENUM (
-            'HOPE_ENCOURAGE', 'ANGER_CRITICISM', 'ANXIETY_CRISIS', 'SAD_SHOCK', 'NEUTRAL_FACTUAL'
-        );
-END IF;
+CREATE TYPE IF NOT EXISTS sentiment AS ENUM (
+    'HOPE_ENCOURAGE', 'ANGER_CRITICISM', 'ANXIETY_CRISIS', 'SAD_SHOCK', 'NEUTRAL_FACTUAL'
+);
+
+CREATE TYPE IF NOT EXISTS political_orientation AS ENUM (
+    'PROGRESSIVE', 'CONSERVATIVE', 'MODERATE'
+);
 
     IF NOT EXISTS (SELECT 1 FROM pg_type WHERE typname = 'political_orientation') THEN
 CREATE TYPE political_orientation AS ENUM (

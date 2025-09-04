@@ -11,10 +11,10 @@ import org.springframework.data.redis.repository.configuration.EnableRedisReposi
 @Configuration
 public class RedisConfig {
 
-    @Value("${spring.data.redis.host}")
+    @Value("${spring.datasource.redis.host}")
     private String host;
 
-    @Value("${spring.data.redis.port}")
+    @Value("${spring.datasource.redis.port}")
     private int port;
 
     @Bean
@@ -22,3 +22,4 @@ public class RedisConfig {
         return new LettuceConnectionFactory(host, port);
     }
 }
+

@@ -30,6 +30,6 @@ public class NewsResponseDto {
     private String emotion; // 감정
     private double emotionRating;
     private String thumbnail;
-    private Long likeCount;
+    private Integer likeCount;
     private LocalDateTime taggedAt;
 }

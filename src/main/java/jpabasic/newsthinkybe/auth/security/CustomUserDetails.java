@@ -16,9 +16,15 @@ public class CustomUserDetails implements UserDetails {
         this.user = user;
     }
 
-    public String getProfileUrl(){
+    public String getProfileUrl() {
         return user.getProfileUrl();
     }
+
+    public Long getUserId() {
+        return user.getId();
+    }
+
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

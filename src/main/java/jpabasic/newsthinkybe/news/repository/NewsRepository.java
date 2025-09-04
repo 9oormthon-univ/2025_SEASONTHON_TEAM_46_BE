@@ -44,4 +44,8 @@ public interface NewsRepository extends JpaRepository<News, Long> {
     Page<News> findUnviewedNewsByEmotionPage(@Param("emotion") Emotion emotion,
                                              @Param("userId") Long userId,
                                              Pageable pageable);
+    @Query("SELECT n FROM News n WHERE n.taggedAt BETWEEN :start AND :end ORDER BY n.likeCount DESC")
+    List<News> findTopByCreatedAtBetween(@Param("start") LocalDateTime start,
+                                         @Param("end") LocalDateTime end,
+                                         Pageable pageable);
 }
