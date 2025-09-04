@@ -20,9 +20,6 @@ public class CustomUserDetails implements UserDetails {
         return user.getProfileUrl();
     }
 
-    public Long getUserId() {
-        return user.getId();
-    }
 
 
 
