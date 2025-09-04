@@ -20,14 +20,24 @@ public class SwaggerConfig {
                 .description("newsTHINKY swagger 입니다.");
 
         String jwtSchemaName="jwtAuth";
+        String accessTokenScheme="accessToken";
+        String refreshTokenScheme="refreshToken";
 
         SecurityRequirement securityRequirement=new SecurityRequirement().addList(jwtSchemaName);
 
         Components components=new Components()
-                .addSecuritySchemes(jwtSchemaName,new SecurityScheme().name(jwtSchemaName)
+                //Access Token
+                .addSecuritySchemes(accessTokenScheme,
+                        new SecurityScheme().name("Authorization") //실제 헤더 이름
                         .type(SecurityScheme.Type.HTTP)
                         .scheme("bearer")
-                        .bearerFormat("JWT"));
+                        .bearerFormat("JWT"))
+                //Refresh Token
+                .addSecuritySchemes(refreshTokenScheme,
+                        new SecurityScheme()
+                                .name("x-refresh-token") //커스텀 헤더 이름
+                                .in(SecurityScheme.In.HEADER)
+                                .type(SecurityScheme.Type.APIKEY));
 
         return new OpenAPI()
                 .info(info)
