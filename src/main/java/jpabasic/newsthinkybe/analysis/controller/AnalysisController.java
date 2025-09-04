@@ -7,6 +7,8 @@ import jpabasic.newsthinkybe.analysis.service.NewsAnalysisService;
 import jpabasic.newsthinkybe.auth.security.CustomUserDetails;
 import jpabasic.newsthinkybe.news.domain.Emotion;
 import jpabasic.newsthinkybe.news.domain.NewsCategory;
+import jpabasic.newsthinkybe.news.dto.SentimentPercentageDto;
+import jpabasic.newsthinkybe.view.dto.EmotionCountDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -52,13 +54,18 @@ public class AnalysisController {
         return ResponseEntity.ok(categoryCount);
     }
 
-
     @GetMapping("/emotion")
-    @Operation(summary = "감정별 뉴스 소비 분석",
+    @Operation(summary = "긍정 부정 중립 각 몇개봤는지 조회",
                description = "사용자가 본 뉴스의 감정 별 수치를 반환합니다.")
-    public ResponseEntity<Map<Emotion, Long>> analyzeUserNewsByEmotion(@AuthenticationPrincipal CustomUserDetails user) {
-        Map<Emotion, Long> emotionCount = newsAnalysisService.countUserViewedNewsByEmotion(user.getUserId());
+    public ResponseEntity<List<EmotionCountDto>> analyzeUserNewsByEmotion(@AuthenticationPrincipal CustomUserDetails user) {
+        List<EmotionCountDto> emotionCount = newsAnalysisService.countUserViewedNewsByEmotion(user.getUserId());
         return ResponseEntity.ok(emotionCount);
+    }
+
+    @GetMapping("/sentiment/percentage")
+    @Operation(summary = "세부감정(분노, 슬픔, 유쾌 등) 소비 비율")
+    public ResponseEntity<List<SentimentPercentageDto>> analyzeUserNewsByEmotionPercentage(@AuthenticationPrincipal CustomUserDetails user) {
+        return ResponseEntity.ok(newsAnalysisService.countUserViewedNewsBySentimentPercentage(user.getUserId()));
     }
 
     @GetMapping("/caution")
