@@ -1,8 +1,10 @@
 package jpabasic.newsthinkybe.news.domain;
 
 import jakarta.persistence.*;
+import jpabasic.newsthinkybe.global.domain.BaseEntity;
 import jpabasic.newsthinkybe.news.dto.NewsResponseDto;
 import lombok.*;
+import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class News {
+public class News extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,7 +67,8 @@ public class News {
     private String thumbnail;
 
     @Column(name = "like_count")
-    private Long likeCount;
+    @ColumnDefault("0")
+    private Integer likeCount;
 
     @Column(name = "tagged_at")
     private LocalDateTime taggedAt;
@@ -97,4 +100,16 @@ public class News {
                 .build();
     }
 
+
+    public Integer increaseCount(){
+        likeCount++;
+        return likeCount;
+    }
+
+    public Integer decreaseCount(){
+        if (likeCount > 0){
+            likeCount--;
+        }
+        return likeCount;
+    }
 }
