@@ -15,29 +15,32 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-@Component
-public class DummyUserFilter extends OncePerRequestFilter {
+//@Component
+//public class DummyUserFilter extends OncePerRequestFilter {
+//
+//    @Override
+//    protected void doFilterInternal(HttpServletRequest request,
+//                                    HttpServletResponse response,
+//                                    FilterChain filterChain) throws ServletException, IOException {
+//        User dummyUser = User.builder()
+//                .id(1L)
+//                .email("test@test.com")
+//                .nickname("테스트유저")
+//                .profileUrl("https://example.com/profile.png")
+//                .userRole(UserRole.USER)
+//                .build();
+//
+//        CustomUserDetails userDetails = new CustomUserDetails(dummyUser);
+//
+//        Authentication auth = new UsernamePasswordAuthenticationToken(
+//                userDetails, null, userDetails.getAuthorities());
+//
+//        SecurityContextHolder.getContext().setAuthentication(auth);
+//
+//        filterChain.doFilter(request, response);
+//    }
+//}
 
-    @Override
-    protected void doFilterInternal(HttpServletRequest request,
-                                    HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
-        User dummyUser = User.builder()
-                .id(1L)
-                .email("test@test.com")
-                .nickname("테스트유저")
-                .profileUrl("https://example.com/profile.png")
-                .userRole(UserRole.USER)
-                .build();
-
-        CustomUserDetails userDetails = new CustomUserDetails(dummyUser);
-
-        Authentication auth = new UsernamePasswordAuthenticationToken(
-                userDetails, null, userDetails.getAuthorities());
-
-        SecurityContextHolder.getContext().setAuthentication(auth);
-
-        filterChain.doFilter(request, response);
-    }
-}
-
+/*********************************
+ * 개발용 컴포넌트
+ * *******************************/
