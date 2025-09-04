@@ -235,14 +235,15 @@ INSERT INTO news_image (id, news_id, src, alt) VALUES
                                                     '김하성, 탬파베이서 애틀랜타로 ‘전격 이적’…내년 시즌 ‘가을야구’ 꿈꾼다'
                                                    );
 
-INSERT INTO users (id, email, nickname, profile_url, user_role)
-VALUES (
-           1,
-           'test@test.com',
-           '테스트유저',
-           'https://example.com/profile.png',
-           'USER'
-       );
+-- 개발용 더미 유저 삽입
+-- INSERT INTO users (id, email, nickname, profile_url, user_role)
+-- VALUES (
+--            1,
+--            'test@test.com',
+--            '테스트유저',
+--            'https://example.com/profile.png',
+--            'USER'
+--        );
 
 -- News View 삽입
 INSERT INTO news_view (user_id, news_id, viewed_at) VALUES (1, 1, NOW() - INTERVAL '1 day');

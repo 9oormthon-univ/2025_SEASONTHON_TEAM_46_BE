@@ -6,7 +6,7 @@ services:
     container_name: spring-app
     ports:
       - "8080:8080"
-    env_file: .env_deploy
+    env_file: .env
     environment:
       SPRING_DATASOURCE_URL: ${POSTGRES_URL}
       SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
@@ -19,7 +19,7 @@ services:
     image: postgres:15
     container_name: news_postgres
     restart: always
-    env_file: .env_deploy
+    env_file: .env
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
@@ -34,6 +34,7 @@ services:
   redis:
     image: redis:7
     container_name: news_redis
+    env_file: .env
     restart: always
     ports:
       - "${REDIS_PORT}:6379"
