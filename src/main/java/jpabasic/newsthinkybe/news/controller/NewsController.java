@@ -39,18 +39,18 @@ public class NewsController {
         return ResponseEntity.ok(newsService.getAllNews());
     }
 
-    // 뉴스 수정
-    @PutMapping("/{id}")
-    public ResponseEntity<NewsResponseDto> updateNews(@PathVariable Long id, @RequestBody News news) {
-        return ResponseEntity.ok(newsService.updateNews(id, news));
-    }
+//    // 뉴스 수정
+//    @PutMapping("/{id}")
+//    public ResponseEntity<NewsResponseDto> updateNews(@PathVariable Long id, @RequestBody News news) {
+//        return ResponseEntity.ok(newsService.updateNews(id, news));
+//    }
 
-    // 뉴스 삭제
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteNews(@PathVariable Long id) {
-        newsService.deleteNews(id);
-        return ResponseEntity.noContent().build();
-    }
+//    // 뉴스 삭제
+//    @DeleteMapping("/{id}")
+//    public ResponseEntity<Void> deleteNews(@PathVariable Long id) {
+//        newsService.deleteNews(id);
+//        return ResponseEntity.noContent().build();
+//    }
 
     @GetMapping("/{id}/body")
     @Operation(summary = "뉴스 본문 조회", description = "Retrieve the body of a news item by its ID")
@@ -58,4 +58,9 @@ public class NewsController {
         return ResponseEntity.ok(newsService.getNewsBody(id));
     }
 
+    @GetMapping("/{id}/recommandation/opposing-emotion")
+    @Operation(summary = "반대 감정 뉴스 3개 추천", description = "Retrieve news recommendations with opposing emotions")
+    public ResponseEntity<List<NewsResponseDto>> getOpposingEmotionRecommendations(@PathVariable Long id) {
+        return ResponseEntity.ok(newsService.getOpposingEmotionRecommendations(id));
+    }
 }

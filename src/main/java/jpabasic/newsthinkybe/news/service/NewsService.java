@@ -3,6 +3,7 @@ package jpabasic.newsthinkybe.news.service;
 import jpabasic.newsthinkybe.global.domain.BaseService;
 import jpabasic.newsthinkybe.global.exception.CustomException;
 import jpabasic.newsthinkybe.global.exception.ErrorCode;
+import jpabasic.newsthinkybe.news.domain.Emotion;
 import jpabasic.newsthinkybe.news.domain.News;
 import jpabasic.newsthinkybe.news.dto.NewsBodyDto;
 import jpabasic.newsthinkybe.news.dto.NewsResponseDto;
@@ -10,8 +11,10 @@ import jpabasic.newsthinkybe.news.repository.NewsRepository;
 import lombok.RequiredArgsConstructor;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
+import java.awt.print.Pageable;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.charset.StandardCharsets;
@@ -93,4 +96,32 @@ public class NewsService extends BaseService<News, Long> {
             throw new CustomException(ErrorCode.CSV_READ_ERROR, e.getMessage());
         }
     }
+
+    public List<NewsResponseDto> getOpposingEmotionRecommendations(Long id) {
+        News curNews = getEntityOrThrow(newsRepository, id, "News");
+        Emotion curEmotion = curNews.getEmotion();
+
+        Emotion targetEmotion;
+        if (curEmotion == Emotion.POSITIVE) {
+            targetEmotion = Emotion.NEGATIVE;
+        } else if (curEmotion == Emotion.NEGATIVE) {
+            targetEmotion = Emotion.POSITIVE;
+        } else {
+            targetEmotion = Emotion.NEUTRAL; // 중립이라면 계쏙 중립추천인지 물어보기
+        }
+
+        // 방법 1: DB에서 랜덤
+        List<News> opposingNews = newsRepository.findRandom3ByEmotionAndIdNot(
+                targetEmotion, id, (Pageable) PageRequest.of(0, 3));
+
+        // 방법 2: 자바에서 랜덤 (DB 랜덤 정렬 안 쓸 경우)
+        // List<News> candidates = newsRepository.findByEmotionAndIdNot(targetEmotion, id);
+        // Collections.shuffle(candidates);
+        // List<News> opposingNews = candidates.stream().limit(3).toList();
+
+        return opposingNews.stream()
+                .map(News::toDTO)
+                .toList();
+    }
+
 }
