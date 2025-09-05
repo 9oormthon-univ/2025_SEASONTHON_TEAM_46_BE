@@ -10,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.io.IOException;
 
@@ -17,7 +18,7 @@ import java.io.IOException;
 public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
 
     private final TokenProvider tokenProvider;
-    private static final String URI="/auth/login";
+    private static final String REDIRECT_URI = "http://localhost:5173/login/callback";
 
     public OAuth2SuccessHandler(TokenProvider tokenProvider) {
         this.tokenProvider = tokenProvider;
@@ -34,8 +35,15 @@ public class OAuth2SuccessHandler implements AuthenticationSuccessHandler {
         Authentication jwtAuth=tokenProvider.getAuthentication(accessToken);
         SecurityContextHolder.getContext().setAuthentication(jwtAuth);
 
+        String targetUrl = UriComponentsBuilder.fromUriString(REDIRECT_URI)
+                .queryParam("accessToken", accessToken)
+                .queryParam("refreshToken", refreshToken)
+                .build().toUriString();
+
+
         //토큰 JSON 응답
-        response.setContentType("application/json;charset=UTF-8");
-        new ObjectMapper().writeValue(response.getWriter(),new TokenDto(accessToken,refreshToken));
+//        response.setContentType("application/json;charset=UTF-8");
+//        new ObjectMapper().writeValue(response.getWriter(),new TokenDto(accessToken,refreshToken));
+        response.sendRedirect(targetUrl);
     }
 }
