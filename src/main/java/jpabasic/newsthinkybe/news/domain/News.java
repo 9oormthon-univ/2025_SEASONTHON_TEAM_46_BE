@@ -3,6 +3,7 @@ package jpabasic.newsthinkybe.news.domain;
 import jakarta.persistence.*;
 import jpabasic.newsthinkybe.comment.domain.Comment;
 import jpabasic.newsthinkybe.global.domain.BaseEntity;
+import jpabasic.newsthinkybe.news.dto.CategoryMeta;
 import jpabasic.newsthinkybe.news.dto.NewsResponseDto;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
@@ -139,7 +140,7 @@ public class News extends BaseEntity {
                 .likeCount(news.getLikeCount())
                 .taggedAt(news.getTaggedAt())
                 // ✅ Enum → Meta 변환
-                .categoryMeta(NewsResponseDto.CategoryMeta.builder()
+                .categoryMeta(CategoryMeta.builder()
                         .text(c.getText())     // Enum에 넣어둔 text
                         .color(c.getColor())   // Enum에 넣어둔 color
                         .bgColor(c.getBgColor()) // Enum에 넣어둔 bgColor

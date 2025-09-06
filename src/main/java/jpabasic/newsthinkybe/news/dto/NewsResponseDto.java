@@ -33,26 +33,6 @@ public class NewsResponseDto {
 
     private CategoryMeta categoryMeta;      // ✅ UI-friendly 데이터
 
-    @Data
-    @Builder
-    public static class CategoryMeta {      // 🔥 static으로!
-        private String label;
-        private String text;
-        private String description;
-        private String color;
-        private String bgColor;
-
-        public static CategoryMeta fromEnum(NewsCategory c) {
-            return CategoryMeta.builder()
-                    .label(c.getLabel())
-                    .text(c.getText())
-                    .description(c.getDescription())
-                    .color(c.getColor())
-                    .bgColor(c.getBgColor())
-                    .build();
-        }
-    }
-
     public static NewsResponseDto fromEntity(News news) {
         NewsCategory c = news.getCategory();
 
