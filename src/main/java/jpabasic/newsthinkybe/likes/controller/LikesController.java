@@ -29,8 +29,8 @@ public class LikesController {
     @PostMapping("/likes")
     @Operation(summary = "특정 기사에 좋아요 누르기")
     public ResponseEntity<Map<String,Integer>> giveLikes(@RequestParam Long newsId, @AuthenticationPrincipal CustomUserDetails user){
-        Long userId=user.getUserId();
-        Integer likeCount=likesService.giveLikes(newsId,userId);
+        User me=user.getUser();
+        Integer likeCount=likesService.giveLikes(newsId,me);
 
         Map<String,Integer> result=new HashMap<>();
         result.put("likeCount",likeCount);
