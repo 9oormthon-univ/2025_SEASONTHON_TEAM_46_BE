@@ -38,3 +38,4 @@ src/main/resources/application.yml
 ### VS Code ###
 .vscode/
 .env
+.env_deploy

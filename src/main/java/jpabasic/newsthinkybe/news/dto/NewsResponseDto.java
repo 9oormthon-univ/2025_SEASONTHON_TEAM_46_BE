@@ -27,6 +27,7 @@ public class NewsResponseDto {
     private String rationale;               // 근거
     private PoliticalOrientation orientation; // 정치 성향
 
+    private String emotion; // 감정
     private double emotionRating;
     private String thumbnail;
     private Integer likeCount;

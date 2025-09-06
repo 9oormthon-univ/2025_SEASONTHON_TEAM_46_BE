@@ -1,6 +1,7 @@
 package jpabasic.newsthinkybe.news.domain;
 
 import jakarta.persistence.*;
+import jpabasic.newsthinkybe.comment.domain.Comment;
 import jpabasic.newsthinkybe.global.domain.BaseEntity;
 import jpabasic.newsthinkybe.news.dto.NewsResponseDto;
 import lombok.*;
@@ -60,7 +61,10 @@ public class News extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private PoliticalOrientation orientation; // 성향 분석 결과
 
-    @Column(name = "emotion_label", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Emotion emotion; // 감정 (긍정, 중립, 부정)
+
+    @Column(name = "emotion_rating", nullable = false)
     private Double emotionRating = 0.0;
 
     @Column
@@ -76,6 +80,9 @@ public class News extends BaseEntity {
     // ✅ ArticleImage 연관관계 매핑
     @OneToMany(mappedBy = "news", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<NewsImage> images = new ArrayList<>();
+
+    @OneToMany(mappedBy="news",cascade=CascadeType.ALL,orphanRemoval = true)
+    private List<Comment> comments = new ArrayList<>();
 
     public static NewsResponseDto toDTO(News news) {
         return NewsResponseDto.builder()

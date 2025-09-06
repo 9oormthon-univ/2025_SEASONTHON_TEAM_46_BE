@@ -1,6 +1,7 @@
 package jpabasic.newsthinkybe.auth.security;
 
 import jpabasic.newsthinkybe.user.domain.user.User;
+import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -19,9 +20,6 @@ public class CustomUserDetails implements UserDetails {
         return user.getProfileUrl();
     }
 
-    public Long getUserId() {
-        return user.getId();
-    }
 
 
 
@@ -38,5 +36,13 @@ public class CustomUserDetails implements UserDetails {
     @Override
     public String getUsername() {
         return user.getNickname();
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public Long getUserId() {
+        return user.getId();
     }
 }
