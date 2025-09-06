@@ -19,18 +19,21 @@ public class NewsListResponseDto {
     private String title;
 //    @Size(max=30)
 //    private String description;
-//    private String image;
+    private String image;
     private String orientation; //한글로 나오도록 해야함.
     private Integer likeCount;
+
+
 
     public static NewsListResponseDto toDto(News news) {
         return NewsListResponseDto.builder()
                 .id(news.getId())
                 .outlet(news.getOutlet())
                 .title(news.getTitle())
-//                .image(news.getImages().get(0).getSrc())
+                .image(news.getThumbnail())
                 .orientation(news.getOrientation().getDescription())
                 .likeCount(news.getLikeCount())
                 .build();
     }
+
 }
