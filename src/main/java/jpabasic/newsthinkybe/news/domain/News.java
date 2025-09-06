@@ -62,7 +62,8 @@ public class News extends BaseEntity {
     private String rationale;  // 감정 분석 근거 (텍스트 일부 발췌)
 
     @Enumerated(EnumType.STRING)
-    private PoliticalOrientation orientation; // 성향 분석 결과
+    @Column(name = "political_orientation")
+    private PoliticalOrientation politicalOrientation; // 성향 분석 결과
 
     @Enumerated(EnumType.STRING)
     private Emotion emotion; // 감정 (긍정, 중립, 부정)
@@ -103,7 +104,7 @@ public class News extends BaseEntity {
                 .sentiment(news.getSentiment())
                 .confidence(news.getConfidence())
                 .rationale(news.getRationale())
-                .orientation(news.getOrientation())
+                .orientation(news.getPoliticalOrientation())
                 .emotion(news.getEmotion())
                 .emotionRating(news.getEmotionRating() != null ? news.getEmotionRating() : 0.0)
                 .thumbnail(news.getThumbnail())

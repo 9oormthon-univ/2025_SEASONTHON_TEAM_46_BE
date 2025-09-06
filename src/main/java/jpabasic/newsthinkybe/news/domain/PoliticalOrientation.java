@@ -4,7 +4,8 @@ public enum PoliticalOrientation {
 
     PROGRESSIVE("PROGRESSIVE", "진보"),
     CONSERVATIVE("CONSERVATIVE", "보수"),
-    MODERATE("MODERATE", "중도");
+    MODERATE("MODERATE", "중도"),
+    NONE("NONE", "해당없음");
 
     private final String code;
     private final String description;
