@@ -17,8 +17,8 @@ public class NewsListResponseDto {
     private String title;
 //    @Size(max=30)
 //    private String description;
-    private String image;
-    private String orientation; //한글로 나오도록 해야함.
+//    private String image;
+    private String politicalOrientation; //한글로 나오도록 해야함.
     private Integer likeCount;
     private String summary;
 
@@ -29,11 +29,9 @@ public class NewsListResponseDto {
                 .id(news.getId())
                 .outlet(news.getOutlet())
                 .title(news.getTitle())
-                .orientation(news.getPoliticalOrientation().getDescription())
-                .image(news.getThumbnail())
+                .politicalOrientation(news.getPoliticalOrientation().getDescription())
                 .likeCount(news.getLikeCount())
                 .summary(news.getSummary())
                 .build();
     }
-
 }
