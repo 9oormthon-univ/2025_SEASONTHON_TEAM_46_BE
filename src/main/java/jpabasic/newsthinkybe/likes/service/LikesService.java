@@ -39,10 +39,7 @@ public class LikesService {
     }
 
     @Transactional
-    public Integer giveLikes(Long newsId, Long userId){
-
-        User user=userRepository.findById(userId)
-                .orElseThrow(()->new CustomException(ErrorCode.USER_NOT_FOUND));
+    public Integer giveLikes(Long newsId, User user){
 
         News news=newsRepository.findById(newsId)
                 .orElseThrow(()->new CustomException(ErrorCode.NEWS_NOT_FOUND));
