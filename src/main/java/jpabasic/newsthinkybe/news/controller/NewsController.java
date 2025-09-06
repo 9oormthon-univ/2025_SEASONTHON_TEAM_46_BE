@@ -5,6 +5,7 @@ import jdk.jfr.Category;
 import jpabasic.newsthinkybe.auth.security.CustomUserDetails;
 import jpabasic.newsthinkybe.news.domain.Emotion;
 import jpabasic.newsthinkybe.news.domain.News;
+import jpabasic.newsthinkybe.news.domain.NewsCategory;
 import jpabasic.newsthinkybe.news.dto.NewsBodyDto;
 import jpabasic.newsthinkybe.news.dto.NewsResponseDto;
 import jpabasic.newsthinkybe.news.service.NewsService;
@@ -84,7 +85,7 @@ public class NewsController {
     @GetMapping("/category")
     @Operation(summary = "선택한 카테고리 뉴스 조회 (페이징)")
     public ResponseEntity<PagedResponse<NewsResponseDto>> recommendByCategory(
-            @RequestParam Category category,
+            @RequestParam NewsCategory category,
             @AuthenticationPrincipal CustomUserDetails user,
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "10") int size) {
