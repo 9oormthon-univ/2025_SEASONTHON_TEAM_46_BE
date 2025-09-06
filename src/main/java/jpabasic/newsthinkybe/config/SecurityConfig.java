@@ -56,6 +56,7 @@ public class SecurityConfig {
                                 ).permitAll()
                                 .anyRequest().authenticated()
                 )
+
                 .exceptionHandling(handler->handler.authenticationEntryPoint(new AuthenticationEntryPoint() {
                     @Override
                     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
