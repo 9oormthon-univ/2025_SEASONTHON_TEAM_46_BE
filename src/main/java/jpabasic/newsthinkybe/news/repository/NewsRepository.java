@@ -52,7 +52,7 @@ public interface NewsRepository extends JpaRepository<News, Long> {
                                          @Param("end") LocalDateTime end,
                                          Pageable pageable);
 
-    @Query("SELECT n FROM News n WHERE LOWER(n.title) LIKE LOWER(CONCAT('%', :keyword, '%'))")
+    @Query("SELECT n FROM News n WHERE n.title LIKE %:keyword% ORDER BY n.id DESC")
     Page<News> searchByTitle(@Param("keyword") String keyword, Pageable pageable);
 
 
