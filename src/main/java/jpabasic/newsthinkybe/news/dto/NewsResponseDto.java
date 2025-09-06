@@ -1,5 +1,6 @@
 package jpabasic.newsthinkybe.news.dto;
 
+import jpabasic.newsthinkybe.news.domain.Emotion;
 import jpabasic.newsthinkybe.news.domain.NewsCategory;
 import jpabasic.newsthinkybe.news.domain.Sentiment;
 import jpabasic.newsthinkybe.news.domain.PoliticalOrientation;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 public class NewsResponseDto {
     private Long id;
     private String outlet;   // 언론사
+    private String outlet_img;
     private String feedUrl;
     private String title;
     private String author;
@@ -27,7 +29,7 @@ public class NewsResponseDto {
     private String rationale;               // 근거
     private PoliticalOrientation orientation; // 정치 성향
 
-    private String emotion; // 감정
+    private Emotion emotion; // 감정
     private double emotionRating;
     private String thumbnail;
     private Integer likeCount;

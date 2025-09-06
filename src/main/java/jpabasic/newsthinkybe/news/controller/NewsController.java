@@ -102,4 +102,10 @@ public class NewsController {
         Pageable pageable = PageRequest.of(page, size);
         return ResponseEntity.ok(newsService.recommendByEmotion(emotion, user.getUserId(), pageable));
     }
+
+//    @GetMapping("/main")
+//    @Operation(summary = "main 화면 (주제 기반 기사 2개, 감정 기반 기사 2개)")
+//    public ResponseEntity<List<NewsResponseDto>> getNewsRecommendMainView() {
+//
+//    }
 }

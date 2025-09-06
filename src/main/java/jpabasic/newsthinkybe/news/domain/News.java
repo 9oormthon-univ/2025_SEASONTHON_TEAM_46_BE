@@ -25,6 +25,9 @@ public class News extends BaseEntity {
     @Column
     private String outlet; // 언론사
 
+    @Column
+    private String outlet_img = "static/img/khan.png"; // 언론사 이미지
+
     @Column(name = "feed_url")
     private String feedUrl;
 
@@ -88,6 +91,7 @@ public class News extends BaseEntity {
         return NewsResponseDto.builder()
                 .id(news.getId())
                 .outlet(news.getOutlet())
+                .outlet_img(news.getOutlet_img())
                 .feedUrl(news.getFeedUrl())
                 .title(news.getTitle())
                 .author(news.getAuthor())
@@ -100,6 +104,7 @@ public class News extends BaseEntity {
                 .confidence(news.getConfidence())
                 .rationale(news.getRationale())
                 .orientation(news.getOrientation())
+                .emotion(news.getEmotion())
                 .emotionRating(news.getEmotionRating() != null ? news.getEmotionRating() : 0.0)
                 .thumbnail(news.getThumbnail())
                 .likeCount(news.getLikeCount())
