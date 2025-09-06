@@ -21,6 +21,7 @@ public class NewsListResponseDto {
     private String politicalOrientation; //한글로 나오도록 해야함.
     private Integer likeCount;
     private String summary;
+    private CategoryMeta categoryMeta;
 
 
 
@@ -32,6 +33,7 @@ public class NewsListResponseDto {
                 .politicalOrientation(news.getPoliticalOrientation().getDescription())
                 .likeCount(news.getLikeCount())
                 .summary(news.getSummary())
+                .categoryMeta(CategoryMeta.fromEnum(news.getCategory()))
                 .build();
     }
 }
