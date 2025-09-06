@@ -17,7 +17,7 @@ public class NewsListResponseDto {
     private String title;
 //    @Size(max=30)
 //    private String description;
-//    private String image;
+    private String image;
     private String politicalOrientation; //한글로 나오도록 해야함.
     private Integer likeCount;
     private String summary;
@@ -34,6 +34,7 @@ public class NewsListResponseDto {
                 .likeCount(news.getLikeCount())
                 .summary(news.getSummary())
                 .categoryMeta(CategoryMeta.fromEnum(news.getCategory()))
+                .image(news.getThumbnail())
                 .build();
     }
 }
