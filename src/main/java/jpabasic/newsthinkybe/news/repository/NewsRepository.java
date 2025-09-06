@@ -4,6 +4,7 @@ import jdk.jfr.Category;
 import jpabasic.newsthinkybe.news.domain.Emotion;
 import jpabasic.newsthinkybe.news.domain.News;
 import jpabasic.newsthinkybe.news.domain.NewsCategory;
+import jpabasic.newsthinkybe.news.domain.Sentiment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -59,6 +60,10 @@ public interface NewsRepository extends JpaRepository<News, Long> {
     Page<News> searchByTitleAndCategory(@Param("keyword") String keyword, Pageable pageable,NewsCategory category);
 
 
-
+    @Query("SELECT n FROM News n WHERE n.sentiment = :sentiment " +
+            "AND n.id NOT IN (SELECT v.news.id FROM NewsView v WHERE v.user.id = :userId)")
+    Page<News> findUnviewedNewsBySentimentPage(@Param("sentiment") Sentiment sentiment,
+                                               @Param("userId") Long userId,
+                                               Pageable pageable);
 
 }
