@@ -20,6 +20,7 @@ public class NewsListResponseDto {
     private String image;
     private String orientation; //한글로 나오도록 해야함.
     private Integer likeCount;
+    private String summary;
 
 
 
@@ -31,6 +32,7 @@ public class NewsListResponseDto {
                 .orientation(news.getPoliticalOrientation().getDescription())
                 .image(news.getThumbnail())
                 .likeCount(news.getLikeCount())
+                .summary(news.getSummary())
                 .build();
     }
 
