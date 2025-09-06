@@ -23,6 +23,8 @@ public class NewsListResponseDto {
     private String orientation; //한글로 나오도록 해야함.
     private Integer likeCount;
 
+
+
     public static NewsListResponseDto toDto(News news) {
         return NewsListResponseDto.builder()
                 .id(news.getId())
