@@ -1,8 +1,6 @@
 package jpabasic.newsthinkybe.news.dto;
 
-import jakarta.validation.constraints.Size;
 import jpabasic.newsthinkybe.news.domain.News;
-import jpabasic.newsthinkybe.news.domain.PoliticalOrientation;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,7 +27,7 @@ public class NewsListResponseDto {
                 .outlet(news.getOutlet())
                 .title(news.getTitle())
 //                .image(news.getImages().get(0).getSrc())
-                .orientation(news.getOrientation().getDescription())
+                .orientation(news.getPoliticalOrientation().getDescription())
                 .likeCount(news.getLikeCount())
                 .build();
     }

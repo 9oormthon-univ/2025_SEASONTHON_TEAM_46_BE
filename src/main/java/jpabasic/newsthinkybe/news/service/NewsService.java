@@ -70,7 +70,7 @@ public class NewsService extends BaseService<News, Long> {
         news.setSentiment(update.getSentiment());
         news.setConfidence(update.getConfidence());
         news.setRationale(update.getRationale());
-        news.setOrientation(update.getOrientation());
+        news.setPoliticalOrientation(update.getPoliticalOrientation());
         news.setEmotionRating(update.getEmotionRating());
         news.setThumbnail(update.getThumbnail());
         news.setLikeCount(update.getLikeCount());
