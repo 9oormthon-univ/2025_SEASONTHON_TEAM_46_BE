@@ -44,7 +44,8 @@ public class UserController {
     @GetMapping("/user/info")
     @Operation(summary="유저 정보 가져오기")
     public ResponseEntity<UserInfoDto> info(@AuthenticationPrincipal CustomUserDetails user) {
-        UserInfoDto dto=new UserInfoDto(user.getUsername(),user.getProfileUrl());
+        User me=user.getUser();
+        UserInfoDto dto=new UserInfoDto(user.getUsername(),user.getProfileUrl(),me.getEmail());
         return ResponseEntity.ok(dto);
     }
 
