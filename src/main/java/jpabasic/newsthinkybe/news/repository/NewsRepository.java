@@ -38,7 +38,7 @@ public interface NewsRepository extends JpaRepository<News, Long> {
 
     @Query("SELECT n FROM News n WHERE n.category = :category " +
             "AND n.id NOT IN (SELECT v.news.id FROM NewsView v WHERE v.user.id = :userId)")
-    Page<News> findUnviewedNewsByCategory(@Param("category") Category category,
+    Page<News> findUnviewedNewsByCategory(@Param("category") NewsCategory category,
                                           @Param("userId") Long userId,
                                           Pageable pageable);
 

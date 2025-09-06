@@ -26,7 +26,8 @@ public class News extends BaseEntity {
     private String outlet; // 언론사
 
     @Column
-    private String outlet_img = "static/img/khan.png"; // 언론사 이미지
+    @ColumnDefault("/img/khan.png")
+    private String outlet_img; // 언론사 이미지
 
     @Column(name = "feed_url")
     private String feedUrl;

@@ -146,7 +146,7 @@ public class NewsService extends BaseService<News, Long> {
                 .toList();
     }
 
-    public PagedResponse<NewsResponseDto> recommendByCategory(Category category, Long userId, Pageable pageable) {
+    public PagedResponse<NewsResponseDto> recommendByCategory(NewsCategory category, Long userId, Pageable pageable) {
         Page<News> page = newsRepository.findUnviewedNewsByCategory(category, userId, pageable);
         Page<NewsResponseDto> dtoPage = page.map(News::toDTO);
         return new PagedResponse<>(dtoPage);
