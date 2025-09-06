@@ -1,6 +1,10 @@
 package jpabasic.newsthinkybe.news.repository;
 
+import jdk.jfr.Category;
+import jpabasic.newsthinkybe.news.domain.Emotion;
 import jpabasic.newsthinkybe.news.domain.News;
+import jpabasic.newsthinkybe.news.domain.NewsCategory;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
