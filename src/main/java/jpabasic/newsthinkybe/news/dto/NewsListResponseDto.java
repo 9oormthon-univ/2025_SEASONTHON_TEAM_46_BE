@@ -1,6 +1,7 @@
 package jpabasic.newsthinkybe.news.dto;
 
 import jpabasic.newsthinkybe.news.domain.News;
+import jpabasic.newsthinkybe.news.domain.Sentiment;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,6 +23,8 @@ public class NewsListResponseDto {
     private Integer likeCount;
     private String summary;
     private CategoryMeta categoryMeta;
+    private Sentiment sentiment;
+    private SentimentMeta sentimentMeta;
 
 
 
@@ -35,6 +38,8 @@ public class NewsListResponseDto {
                 .summary(news.getSummary())
                 .categoryMeta(CategoryMeta.fromEnum(news.getCategory()))
                 .image(news.getThumbnail())
+                .sentiment(news.getSentiment())
+                .sentimentMeta(SentimentMeta.fromEnum(news.getSentiment()))
                 .build();
     }
 }
