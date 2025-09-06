@@ -6,6 +6,7 @@ import jpabasic.newsthinkybe.auth.security.CustomUserDetails;
 import jpabasic.newsthinkybe.news.domain.Emotion;
 import jpabasic.newsthinkybe.news.domain.News;
 import jpabasic.newsthinkybe.news.domain.NewsCategory;
+import jpabasic.newsthinkybe.news.domain.Sentiment;
 import jpabasic.newsthinkybe.news.dto.NewsBodyDto;
 import jpabasic.newsthinkybe.news.dto.NewsResponseDto;
 import jpabasic.newsthinkybe.news.service.NewsService;
@@ -102,6 +103,17 @@ public class NewsController {
             @RequestParam(defaultValue = "10") int size) {
         Pageable pageable = PageRequest.of(page, size);
         return ResponseEntity.ok(newsService.recommendByEmotion(emotion, user.getUserId(), pageable));
+    }
+
+    @GetMapping("/sentiment")
+    @Operation(summary = "선택한 세부 감전 뉴스 조회 (페이징)")
+    public ResponseEntity<PagedResponse<NewsResponseDto>> recommendBySentiment(
+            @RequestParam Sentiment sentiment,
+            @AuthenticationPrincipal CustomUserDetails user,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return ResponseEntity.ok(newsService.recommendBySentiment(sentiment, user.getUserId(), pageable));
     }
 
 //    @GetMapping("/main")

@@ -7,6 +7,7 @@ import jpabasic.newsthinkybe.global.exception.ErrorCode;
 import jpabasic.newsthinkybe.news.domain.Emotion;
 import jpabasic.newsthinkybe.news.domain.News;
 import jpabasic.newsthinkybe.news.domain.NewsCategory;
+import jpabasic.newsthinkybe.news.domain.Sentiment;
 import jpabasic.newsthinkybe.news.dto.NewsBodyDto;
 import jpabasic.newsthinkybe.news.dto.NewsResponseDto;
 import jpabasic.newsthinkybe.news.repository.NewsRepository;
@@ -154,6 +155,12 @@ public class NewsService extends BaseService<News, Long> {
 
     public PagedResponse<NewsResponseDto> recommendByEmotion(Emotion emotion, Long userId, Pageable pageable) {
         Page<News> page = newsRepository.findUnviewedNewsByEmotionPage(emotion, userId, pageable);
+        Page<NewsResponseDto> dtoPage = page.map(News::toDTO);
+        return new PagedResponse<>(dtoPage);
+    }
+
+    public PagedResponse<NewsResponseDto> recommendBySentiment(Sentiment sentiment, Long userId, Pageable pageable) {
+        Page<News> page = newsRepository.findUnviewedNewsBySentimentPage(sentiment, userId, pageable);
         Page<NewsResponseDto> dtoPage = page.map(News::toDTO);
         return new PagedResponse<>(dtoPage);
     }
