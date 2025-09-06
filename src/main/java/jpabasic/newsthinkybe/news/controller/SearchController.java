@@ -1,6 +1,8 @@
 package jpabasic.newsthinkybe.news.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
+import jpabasic.newsthinkybe.news.domain.Emotion;
+import jpabasic.newsthinkybe.news.domain.NewsCategory;
 import jpabasic.newsthinkybe.news.dto.NewsListResponseDto;
 import jpabasic.newsthinkybe.news.service.SearchService;
 import jpabasic.newsthinkybe.view.dto.PagedResponse;
@@ -22,10 +24,11 @@ public class SearchController {
     @GetMapping("/search/news")
     @Operation(summary="기사 검색하기")
     public ResponseEntity<PagedResponse<NewsListResponseDto>> searchNews(
+            @RequestParam(required = false) NewsCategory category,
             @RequestParam String keyword,
             @RequestParam(defaultValue="0") int page,
             @RequestParam(defaultValue = "10") int size){
-        PagedResponse<NewsListResponseDto> resultList=searchService.searchNews(keyword,page,size);
+        PagedResponse<NewsListResponseDto> resultList=searchService.searchNews(keyword,page,size,category);
         return ResponseEntity.ok(resultList);
     }
 }

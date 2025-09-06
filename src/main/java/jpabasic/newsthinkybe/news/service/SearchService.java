@@ -1,6 +1,7 @@
 package jpabasic.newsthinkybe.news.service;
 
 import jpabasic.newsthinkybe.news.domain.News;
+import jpabasic.newsthinkybe.news.domain.NewsCategory;
 import jpabasic.newsthinkybe.news.dto.NewsListResponseDto;
 import jpabasic.newsthinkybe.news.repository.NewsRepository;
 import jpabasic.newsthinkybe.view.dto.PagedResponse;
@@ -21,12 +22,18 @@ public class SearchService {
         this.newsRepository = newsRepository;
     }
 
-    public PagedResponse<NewsListResponseDto> searchNews(String keyword, int page,int size){
+    public PagedResponse<NewsListResponseDto> searchNews(String keyword, int page, int size, NewsCategory category) {
         //page=조회할 페이지의 번호, 10=한 페이지에 보여줄 뉴스 개수
         Pageable pageable = PageRequest.of(page, size);
-        Page<News> getSearchResult=newsRepository.searchByTitle(keyword,pageable);
-        System.out.println("✅getSearchResult:"+getSearchResult);
-        Page<NewsListResponseDto> dtoPage=getSearchResult.map(NewsListResponseDto::toDto);
+        Page<News> getSearchResult = null;
+        if (category == null) {
+            //필터링
+            getSearchResult=newsRepository.searchByTitle(keyword, pageable);
+        } else {
+            getSearchResult=newsRepository.searchByTitleAndCategory(keyword, pageable, category);
+        }
+        System.out.println("✅getSearchResult:" + getSearchResult);
+        Page<NewsListResponseDto> dtoPage = getSearchResult.map(NewsListResponseDto::toDto);
         return new PagedResponse<>(dtoPage);
     }
 }
