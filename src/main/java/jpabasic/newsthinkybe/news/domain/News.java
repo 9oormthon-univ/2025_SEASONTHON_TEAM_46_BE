@@ -89,7 +89,34 @@ public class News extends BaseEntity {
     @OneToMany(mappedBy="news",cascade=CascadeType.ALL,orphanRemoval = true)
     private List<Comment> comments = new ArrayList<>();
 
+//    public static NewsResponseDto toDTO(News news) {
+//        return NewsResponseDto.builder()
+//                .id(news.getId())
+//                .outlet(news.getOutlet())
+//                .outlet_img(news.getOutlet_img())
+//                .feedUrl(news.getFeedUrl())
+//                .title(news.getTitle())
+//                .author(news.getAuthor())
+//                .summary(news.getSummary())
+//                .link(news.getLink())
+//                .published(news.getPublished())
+//                .crawledAt(news.getCrawledAt())
+//                .category(news.getCategory())
+//                .sentiment(news.getSentiment())
+//                .confidence(news.getConfidence())
+//                .rationale(news.getRationale())
+//                .orientation(news.getPoliticalOrientation())
+//                .emotion(news.getEmotion())
+//                .emotionRating(news.getEmotionRating() != null ? news.getEmotionRating() : 0.0)
+//                .thumbnail(news.getThumbnail())
+//                .likeCount(news.getLikeCount())
+//                .taggedAt(news.getTaggedAt())
+//                .build();
+//    }
+
     public static NewsResponseDto toDTO(News news) {
+        NewsCategory c = news.getCategory();
+
         return NewsResponseDto.builder()
                 .id(news.getId())
                 .outlet(news.getOutlet())
@@ -101,16 +128,22 @@ public class News extends BaseEntity {
                 .link(news.getLink())
                 .published(news.getPublished())
                 .crawledAt(news.getCrawledAt())
-                .category(news.getCategory())
+                .category(c)
                 .sentiment(news.getSentiment())
                 .confidence(news.getConfidence())
                 .rationale(news.getRationale())
                 .orientation(news.getPoliticalOrientation())
                 .emotion(news.getEmotion())
-                .emotionRating(news.getEmotionRating() != null ? news.getEmotionRating() : 0.0)
+                .emotionRating(news.getEmotionRating())
                 .thumbnail(news.getThumbnail())
                 .likeCount(news.getLikeCount())
                 .taggedAt(news.getTaggedAt())
+                // ✅ Enum → Meta 변환
+                .categoryMeta(NewsResponseDto.CategoryMeta.builder()
+                        .text(c.getText())     // Enum에 넣어둔 text
+                        .color(c.getColor())   // Enum에 넣어둔 color
+                        .bgColor(c.getBgColor()) // Enum에 넣어둔 bgColor
+                        .build())
                 .build();
     }
 
