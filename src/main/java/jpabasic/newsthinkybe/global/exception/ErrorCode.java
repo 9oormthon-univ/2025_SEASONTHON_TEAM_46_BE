@@ -14,6 +14,7 @@ public enum ErrorCode {
     INVALID_JWT_SIGNATURE("3031","jwt의 토큰 시그니처가 유효하지 않습니다."),
     UNAUTHORIZED("3032","로그인이 필요한 요청입니다."),
     INVALID_REFRESH_TOKEN("3033","유효하지 않은 refresh token 입니다."),
+    REFRESH_TOKEN_DELETE_ERROR("3034","redis refresh token 삭제에 실패했어요."),
 
     // News
     NEWS_NOT_FOUND("5050", "뉴스를 찾을 수 없습니다."),
