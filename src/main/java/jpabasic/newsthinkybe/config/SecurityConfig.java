@@ -89,6 +89,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         // 자격증명 쓰면 '*' 금지 → 정확한 오리진만 나열
         config.setAllowedOrigins(List.of(
+                "*", // 개발용
                 "http://localhost:3000",
                 "http://localhost:5173"
         ));
