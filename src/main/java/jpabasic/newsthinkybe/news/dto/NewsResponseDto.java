@@ -20,7 +20,7 @@ public class NewsResponseDto {
     private String published;
     private LocalDateTime crawledAt;
 
-    private NewsCategory category;          // 원본 enum
+    private NewsCategory category;
     private Sentiment sentiment;
     private Double confidence;
     private String rationale;
@@ -31,10 +31,12 @@ public class NewsResponseDto {
     private Integer likeCount;
     private LocalDateTime taggedAt;
 
-    private CategoryMeta categoryMeta;      // ✅ UI-friendly 데이터
+    private CategoryMeta categoryMeta;   // ✅ 기존
+    private SentimentMeta sentimentMeta; // ✅ 추가
 
     public static NewsResponseDto fromEntity(News news) {
         NewsCategory c = news.getCategory();
+        Sentiment s = news.getSentiment();
 
         return NewsResponseDto.builder()
                 .id(news.getId())
@@ -48,7 +50,7 @@ public class NewsResponseDto {
                 .published(news.getPublished())
                 .crawledAt(news.getCrawledAt())
                 .category(c)
-                .sentiment(news.getSentiment())
+                .sentiment(s)
                 .confidence(news.getConfidence())
                 .rationale(news.getRationale())
                 .orientation(news.getPoliticalOrientation())
@@ -57,9 +59,8 @@ public class NewsResponseDto {
                 .thumbnail(news.getThumbnail())
                 .likeCount(news.getLikeCount())
                 .taggedAt(news.getTaggedAt())
-                // ✅ Enum → UI-friendly meta 변환
-                .categoryMeta(CategoryMeta.fromEnum(c))
+                .categoryMeta(c != null ? CategoryMeta.fromEnum(c) : null)
+                .sentimentMeta(s != null ? SentimentMeta.fromEnum(s) : null) // ✅ 추가
                 .build();
     }
 }
-

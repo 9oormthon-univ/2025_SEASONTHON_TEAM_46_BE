@@ -5,6 +5,7 @@ import jpabasic.newsthinkybe.comment.domain.Comment;
 import jpabasic.newsthinkybe.global.domain.BaseEntity;
 import jpabasic.newsthinkybe.news.dto.CategoryMeta;
 import jpabasic.newsthinkybe.news.dto.NewsResponseDto;
+import jpabasic.newsthinkybe.news.dto.SentimentMeta;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -145,6 +146,7 @@ public class News extends BaseEntity {
                         .color(c.getColor())   // Enum에 넣어둔 color
                         .bgColor(c.getBgColor()) // Enum에 넣어둔 bgColor
                         .build())
+                .sentimentMeta(SentimentMeta.fromEnum(news.getSentiment()))
                 .build();
     }
 
