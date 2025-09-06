@@ -55,6 +55,8 @@ public interface NewsRepository extends JpaRepository<News, Long> {
     @Query("SELECT n FROM News n WHERE n.title LIKE %:keyword% ORDER BY n.id DESC")
     Page<News> searchByTitle(@Param("keyword") String keyword, Pageable pageable);
 
+    @Query("SELECT n FROM News n WHERE n.category=:category AND n.title LIKE %:keyword% ORDER BY n.id DESC")
+    Page<News> searchByTitleAndCategory(@Param("keyword") String keyword, Pageable pageable,NewsCategory category);
 
 
 
