@@ -1,6 +1,17 @@
 # 2025_SEASONTHON_TEAM_46_BE
 [2025 kakao X groom 시즌톤] 건강한 정보를 소비하도록 도와주는 체세대 AI 뉴스 도우미
 
+## 🏭 Architecture
+<img width="1022" height="692" alt="image" src="https://github.com/user-attachments/assets/286c6f67-9249-4fc1-b55a-b60a8dd5a9be" />
+
+## Video
+
+
+
+https://github.com/user-attachments/assets/d6fcd77f-a03e-44ed-b431-60bfa89e40ef
+
+
+
 
 ## 📠 Convention
 
